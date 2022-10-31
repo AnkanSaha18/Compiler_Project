@@ -1,10 +1,10 @@
 #import libraryname.h	
-<!" This is a comment "!>"			
+<! This is a comment !>
 <InT>			
 <ChaR>
 <LonG>
-<Float>
-<Double>
+<FloaT>
+<DoublE>
 :=
 ==
 >>
@@ -26,21 +26,30 @@ BinaryNot
 //sign//
 IncOnE
 DecOnE
+((expression))
+{{expression}}
 ((
 ))
 {{
 }}
 ;;
 EmptY
-Come-bacK
-<PrintF>
-<ScanF>
+Come_bacK
+<PrintF>((in the print function))
+<ScanF>((in the scan function))
+<FoR>((e1;;e2;;e3))
+<WhilE>((e1))
 <ContinuE>
 <BreaK>
 <Static>
 <StrucT>
 <AmountoF>
-<IF>
-<ElseiF>
+<IF>((e1))
+<ElseiF>((e2))
 <ElsE>
-<FoR>
++548
+344
+-525
+'A'
+'String554'
+variableName1

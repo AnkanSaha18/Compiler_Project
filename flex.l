@@ -1,45 +1,49 @@
 %%
 
-"#import ".+".h"		{printf("Header file imported");}
+"#import ".+".h"		{printf("Header_file_imported");}
 
-"<!".*"!>"				{printf("multiline or singleline comment");}
+"<!".*"!>"				{printf("multiline_or_singleline_comment");}
 
 
-"<InT>"					{printf("int detected");}
+"<InT>"					{printf("int_detected");}
 
-"<ChaR>"				{printf("char detected");}
+"<ChaR>"				{printf("char_detected");}
 
-"<LonG>"				{printf("long detected");}
+"<LonG>"				{printf("long_detected");}
 
-"<Float>"				{printf("float detected");}
+"<FloaT>"				{printf("float_detected");}
 
-"<Double>"				{printf("double detected");}
+"<DoublE>"				{printf("double_detected");}
 
-":="					{printf("assign");}
+":="					{printf("assign =");}
 
-"=="					{printf("equal detected");}
+"=="					{printf("equal_detected ==");}
 
-">>"					{printf("greater than >");}
+">>"					{printf("greater_than >");}
 
-"<<"					{printf("less than <");}
+"<<"					{printf("less_than <");}
 
-">>=="					{printf("greater than and equal >=");}
+">>=="					{printf("greater_than_and_equal >=");}
 
-"<<=="					{printf("less than and equal <=");}
+"<<=="					{printf("less_than_and_equal <=");}
 
-"AnD"					{printf("AND operation &&");}
+"AnD"					{printf("AND_operation &&");}
 
-"OR"					{printf("OR operation ||");}
+"OR"					{printf("OR_operation ||");}
 
-"NoT"					{printf("NOT operation !");}
+"NoT"					{printf("NOT_operation !");}
 
-"NoT=="					{printf("NOT equal");}
+"NoT=="					{printf("NOT_equal !=");}
 
-"BinaryAnD"				{printf("binary AND &");}
+"BinaryAnD"				{printf("binary_AND &");}
 
-"BinaryOR"				{printf("binary OR |");}
+"BinaryOR"				{printf("binary_OR |");}
 
-"BinaryNot"				{printf("binary not ~");}
+"BinaryNot"				{printf("binary_not ~");}
+
+"TruE"					{printf("Boolian_true");}
+
+"FalsE"					{printf("Boolian_false");}
 
 "+sign+"				{printf("plus +");}
 
@@ -51,35 +55,37 @@
 
 "%sign%"				{printf("modulus %");}
 
-"//sign//"				{printf("power pow");}
+"//sign//"				{printf("power_pow");}
 
-"IncOnE"				{printf("increment one ++");}
+"IncOnE"				{printf("increment_one ++");}
 
-"DecOnE"				{printf("decriment one --");}
+"DecOnE"				{printf("decriment_one --");}
 
+"((".*"))"				{printf("in_first_bracket");}
 
+"{{".*"}}"				{printf("in_second_bracket");}
 
-"(("					{printf("first bracket open");}
+"(("					{printf("first_bracket_open (");}
 
-"))"					{printf("first bracket close");}
+"))"					{printf("first_bracket_close )");}
 
-"{{"					{printf("second bracket open");}
+"{{"					{printf("second_bracket_open {");}
 
-"}}"					{printf("second bracket close");}
+"}}"					{printf("second_bracket_close }");}
 
 ";;"					{printf("semicolon ;");}
 
 "EmptY"					{printf("void");}
 
-"Come-bacK"				{printf("return");}
+"Come_bacK"				{printf("return");}
 
-"<PrintF>"				{printf("printf detected");}
+"<PrintF>((".*"))"		{printf("printf_detected");}
 
-"<ScanF>"				{printf("printf detected");}
+"<ScanF>((".*"))"		{printf("scanf_detected");}
 
-"<FoR>"					{printf("for loop");}
+"<FoR>((".*";;".*";;".*"))"		{printf("for_loop");}
 
-"<WhilE>(".*"){".*"}"	{printf("while loop");}
+"<WhilE>((".*"))"		{printf("while_loop");}
 
 "<ContinuE>"			{printf("continue");}
 
@@ -89,13 +95,26 @@
 
 "<StrucT>"				{printf("structure");}
 
-"<AmountoF>"			{printf("sizeof function");}
+"<AmountoF>"			{printf("sizeof_function");}
 
-"<IF>"					{printf("if");}
+"<IF>((".*"))"			{printf("if");}
 
-"<ElseiF>"				{printf("elseif");}
+"<ElseiF>((".*"))"		{printf("elseif");}
 
 "<ElsE>"				{printf("else");}
+
+
+[+]?[0-9]+				{printf("positive_integer");}
+
+[-][0-9]+				{printf("negative_integer");}
+
+"'"[a-zA-Z0-9]"'"		{printf("charecter");}
+
+"'"[a-zA-Z0-9]+"'"		{printf("string");}
+
+[a-zA-Z][a-zA-Z0-9]*	{printf("variable_name ");}
+
+.						{}
 
 
 

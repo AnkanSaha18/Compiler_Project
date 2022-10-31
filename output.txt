@@ -1,46 +1,55 @@
-Header file imported	
-multiline or singleline comment"			
-int detected			
-char detected
-long detected
-float detected
-double detected
-assign
-equal detected
-greater than >
-less than <
-greater than and equal >=
-less than and equal <=
-AND operation &&
-OR operation ||
-NOT operation !
-NOT equal
-binary AND &
-binary OR |
-binary not ~
+Header_file_imported
+multiline_or_singleline_comment
+int_detected
+char_detected
+long_detected
+float_detected
+double_detected
+assign =
+equal_detected ==
+greater_than >
+less_than <
+greater_than_and_equal >=
+less_than_and_equal <=
+AND_operation &&
+OR_operation ||
+NOT_operation !
+NOT_equal !=
+binary_AND &
+binary_OR |
+binary_not ~
 plus +
 minus -
 multiplecation *
 division /
 modulus 
-power pow
-increment one ++
-decriment one --
-first bracket open
-first bracket close
-second bracket open
-second bracket close
+power_pow
+increment_one ++
+decriment_one --
+in_first_bracket
+in_second_bracket
+first_bracket_open (
+first_bracket_close )
+second_bracket_open {
+second_bracket_close }
 semicolon ;
 void
 return
-printf detected
-printf detected
+printf_detected
+scanf_detected
+for_loop
+while_loop
 continue
 break
 static
 structure
-sizeof function
+sizeof_function
 if
 elseif
 else
-for loop
+positive_integer
+positive_integer
+negative_integer
+charecter
+string
+variable_name 
