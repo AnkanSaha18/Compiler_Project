@@ -1,0 +1,46 @@
+Header file imported	
+multiline or singleline comment"			
+int detected			
+char detected
+long detected
+float detected
+double detected
+assign
+equal detected
+greater than >
+less than <
+greater than and equal >=
+less than and equal <=
+AND operation &&
+OR operation ||
+NOT operation !
+NOT equal
+binary AND &
+binary OR |
+binary not ~
+plus +
+minus -
+multiplecation *
+division /
+modulus 
+power pow
+increment one ++
+decriment one --
+first bracket open
+first bracket close
+second bracket open
+second bracket close
+semicolon ;
+void
+return
+printf detected
+printf detected
+continue
+break
+static
+structure
+sizeof function
+if
+elseif
+else
+for loop
