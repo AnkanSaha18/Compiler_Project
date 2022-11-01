@@ -33,7 +33,7 @@
  second_bracket_open { 
  second_bracket_close } 
  semicolon ; 
- void 
+ variable_name 
  return 
  printf_detected 
  scanf_detected 
@@ -47,6 +47,7 @@
  if 
  elseif 
  else 
+ function_call 
  positive_integer 
  positive_integer 
  negative_integer 
