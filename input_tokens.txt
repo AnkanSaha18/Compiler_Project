@@ -1,0 +1,85 @@
+#import libraryname.h	
+<! This is a comment !>
+<InT>			
+<ChaR>
+<LonG>
+<DoublE>
+:=
+==
+>>
+<<
+>>==
+<<==
+&&
+||
+!!
+!!==
+&op&
+|op|
++op+
+-op-
+*op*
+/op/
+%op%
+//op//
+IncOnE
+DecOnE
+((
+))
+{{
+}}
+;;
+EmptY
+Come_bacK
+<PrintF>((in the print function))
+<ScanF>((in the scan function))
+<FoR>((e1;;e2;;e3))
+<WhilE>((e1))
+<ContinuE>
+<BreaK>
+<Static>
+<StrucT>
+<AmountoF>
+<IF>((e1))
+<ElseiF>((e2))
+<ElsE>
+<InT> functionName(())
++548
+344
+-525
++34.99
+55.99
+-44.6
+'A'
+'String554'
+variableName1
+
+
+
+
+<!--------------------------------Example Programm-----------------------------!>
+<! This is a program for finding the even and odd number !>
+
+#import myLibrary.h
+
+<InT> limit := 5 ;;
+
+<FoR>((<InT> count := 0 ;; count << limit ;; count IncOnE))
+{{
+    <InT> number ;;
+    <ScanF>((number)) ;;
+
+    <IF>(( number %op% 2 == 0))
+    {{
+        <PrintF>(("It is a even number")) ;;
+    }}
+    <ElseiF>(( number %op% 2 == 1))
+    {{
+        <PrintF>(("It is a odd number")) ;;
+    }}
+    <ElsE>
+    {{
+        <PrintF>(("Invalid Input")) ;;
+        <BreaK>
+    }}
+}}
