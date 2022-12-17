@@ -89,34 +89,37 @@
      LESS_THAN = 278,
      GREATER_THAN_AND_EQUAL = 279,
      LESS_THAN_AND_EQUAL = 280,
-     INC_ONE = 281,
-     DEC_ONE = 282,
-     AND = 283,
-     OR = 284,
-     NOT = 285,
-     TRUE = 286,
-     FALSE = 287,
-     FIRST_BRACKET_OPEN = 288,
-     FIRST_BRACKET_CLOSE = 289,
-     SECOND_BRACKET_OPEN = 290,
-     SECOND_BRACKET_CLOSE = 291,
-     THIRD_BRACKET_OPEN = 292,
-     THIRD_BRACKET_CLOSE = 293,
-     SEMICOLON = 294,
-     COMMA = 295,
-     IF = 296,
-     ELSE_IF = 297,
-     ELSE = 298,
-     SWITCH = 299,
-     CASE = 300,
-     FOR = 301,
-     WHILE = 302,
-     CONTINUE = 303,
-     BREAK = 304,
-     PRINTF = 305,
-     SCANF = 306,
-     SIZE_OF = 307,
-     RETURN = 308
+     AND = 281,
+     OR = 282,
+     INC_ONE = 283,
+     DEC_ONE = 284,
+     TRUE = 285,
+     FALSE = 286,
+     FIRST_BRACKET_OPEN = 287,
+     FIRST_BRACKET_CLOSE = 288,
+     SECOND_BRACKET_OPEN = 289,
+     SECOND_BRACKET_CLOSE = 290,
+     THIRD_BRACKET_OPEN = 291,
+     THIRD_BRACKET_CLOSE = 292,
+     SEMICOLON = 293,
+     COMMA = 294,
+     IF = 295,
+     ELSE_IF = 296,
+     ELSE = 297,
+     SWITCH = 298,
+     CASE = 299,
+     FOR = 300,
+     WHILE = 301,
+     CONTINUE = 302,
+     BREAK = 303,
+     PRINTF = 304,
+     SCANF = 305,
+     SIZE_OF = 306,
+     RETURN = 307,
+     OUTPUTTEXT = 308,
+     LIBRARY = 309,
+     LCM = 310,
+     GCD = 311
    };
 #endif
 /* Tokens.  */
@@ -143,34 +146,37 @@
 #define LESS_THAN 278
 #define GREATER_THAN_AND_EQUAL 279
 #define LESS_THAN_AND_EQUAL 280
-#define INC_ONE 281
-#define DEC_ONE 282
-#define AND 283
-#define OR 284
-#define NOT 285
-#define TRUE 286
-#define FALSE 287
-#define FIRST_BRACKET_OPEN 288
-#define FIRST_BRACKET_CLOSE 289
-#define SECOND_BRACKET_OPEN 290
-#define SECOND_BRACKET_CLOSE 291
-#define THIRD_BRACKET_OPEN 292
-#define THIRD_BRACKET_CLOSE 293
-#define SEMICOLON 294
-#define COMMA 295
-#define IF 296
-#define ELSE_IF 297
-#define ELSE 298
-#define SWITCH 299
-#define CASE 300
-#define FOR 301
-#define WHILE 302
-#define CONTINUE 303
-#define BREAK 304
-#define PRINTF 305
-#define SCANF 306
-#define SIZE_OF 307
-#define RETURN 308
+#define AND 281
+#define OR 282
+#define INC_ONE 283
+#define DEC_ONE 284
+#define TRUE 285
+#define FALSE 286
+#define FIRST_BRACKET_OPEN 287
+#define FIRST_BRACKET_CLOSE 288
+#define SECOND_BRACKET_OPEN 289
+#define SECOND_BRACKET_CLOSE 290
+#define THIRD_BRACKET_OPEN 291
+#define THIRD_BRACKET_CLOSE 292
+#define SEMICOLON 293
+#define COMMA 294
+#define IF 295
+#define ELSE_IF 296
+#define ELSE 297
+#define SWITCH 298
+#define CASE 299
+#define FOR 300
+#define WHILE 301
+#define CONTINUE 302
+#define BREAK 303
+#define PRINTF 304
+#define SCANF 305
+#define SIZE_OF 306
+#define RETURN 307
+#define OUTPUTTEXT 308
+#define LIBRARY 309
+#define LCM 310
+#define GCD 311
 
 
 
@@ -178,7 +184,9 @@
 /* Copy the first part of user declarations.  */
 #line 1 "project.y"
 
-    #include <stdio.h> 
+    #include<stdio.h>
+    #include<string.h>
+    #include<math.h>
     void yyerror(char *s);
     extern int yylex();
     extern int yyparse();
@@ -192,6 +200,43 @@
     };
     struct symbol_table_structure symbol_table[1000];
     int symbol_table_index = 0;
+
+
+    int find_symbol_table_index(char *var)
+    {
+        for (int i = 0; i < symbol_table_index; i++) {
+            if (strcmp(symbol_table[i].name, var) == 0) return i;
+        }
+        return symbol_table_index;
+    }
+
+    void assignment(char *name, char *type, int int_value, double double_value, char char_value)
+    {
+        int i = find_symbol_table_index(name);
+        symbol_table[i].name = name;
+        symbol_table[i].data_type = type;
+        symbol_table[i].int_value = int_value;
+        symbol_table[i].double_value = double_value;
+        symbol_table[i].char_value = char_value;
+        if (i == symbol_table_index) 
+        {
+            symbol_table_index++;
+        }
+        printf("%s %d value is: %d\t",type, i, symbol_table[i].int_value);
+    }
+
+    int gcd(int x, int y)
+    {
+        if (y == 0)   //recursion termination condition
+        {
+            return x;
+        }
+        else 
+        {
+            return gcd(y, x % y);   //calls itself
+        }
+    }
+
 
 
 /* Enabling traces.  */
@@ -214,19 +259,19 @@
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 19 "project.y"
+#line 58 "project.y"
 {
     char text[1000];
     struct datatype {
-        int type;
-        char* str_value;
+        char* name;
+        char* data_type;
         int int_value;
         double double_value;
         char char_value;
     }union_variable;
 }
 /* Line 193 of yacc.c.  */
-#line 230 "project.tab.c"
+#line 275 "project.tab.c"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
@@ -239,7 +284,7 @@ typedef union YYSTYPE
 
 
 /* Line 216 of yacc.c.  */
-#line 243 "project.tab.c"
+#line 288 "project.tab.c"
 
 #ifdef short
 # undef short
@@ -454,20 +499,20 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  2
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   11
+#define YYLAST   365
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  54
+#define YYNTOKENS  57
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  7
+#define YYNNTS  23
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  14
+#define YYNRULES  68
 /* YYNRULES -- Number of states.  */
-#define YYNSTATES  18
+#define YYNSTATES  149
 
 /* YYTRANSLATE(YYLEX) -- Bison symbol number corresponding to YYLEX.  */
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   308
+#define YYMAXUTOK   311
 
 #define YYTRANSLATE(YYX)						\
   ((unsigned int) (YYX) <= YYMAXUTOK ? yytranslate[YYX] : YYUNDEFTOK)
@@ -505,7 +550,8 @@ static const yytype_uint8 yytranslate[] =
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
       25,    26,    27,    28,    29,    30,    31,    32,    33,    34,
       35,    36,    37,    38,    39,    40,    41,    42,    43,    44,
-      45,    46,    47,    48,    49,    50,    51,    52,    53
+      45,    46,    47,    48,    49,    50,    51,    52,    53,    54,
+      55,    56
 };
 
 #if YYDEBUG
@@ -513,24 +559,55 @@ static const yytype_uint8 yytranslate[] =
    YYRHS.  */
 static const yytype_uint8 yyprhs[] =
 {
-       0,     0,     3,     4,     7,     8,    10,    13,    15,    17,
-      19,    23,    25,    29,    33
+       0,     0,     3,     4,     7,     9,    11,    13,    15,    17,
+      19,    21,    23,    25,    27,    29,    31,    33,    35,    37,
+      47,    51,    53,    54,    57,    62,    66,    69,    72,    74,
+      76,    78,    80,    84,    86,    90,    95,   100,   102,   104,
+     106,   108,   112,   116,   120,   124,   128,   132,   136,   140,
+     144,   148,   152,   156,   160,   164,   168,   172,   176,   181,
+     186,   191,   199,   211,   219,   231,   232,   233,   240
 };
 
 /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
 static const yytype_int8 yyrhs[] =
 {
-      55,     0,    -1,    -1,    55,    56,    -1,    -1,    57,    -1,
-      58,    59,    -1,     3,    -1,     6,    -1,     4,    -1,    59,
-      40,    60,    -1,    60,    -1,    10,    11,     8,    -1,    10,
-      11,     7,    -1,    10,    11,     9,    -1
+      58,     0,    -1,    -1,    58,    59,    -1,    66,    -1,    68,
+      -1,    71,    -1,    72,    -1,    73,    -1,    74,    -1,    75,
+      -1,    60,    -1,    61,    -1,    64,    -1,    76,    -1,    77,
+      -1,    78,    -1,    79,    -1,    54,    -1,    67,    10,    32,
+      62,    33,    34,    59,    65,    35,    -1,    62,    39,    63,
+      -1,    63,    -1,    -1,    67,    69,    -1,    10,    32,    68,
+      33,    -1,    10,    32,    33,    -1,    52,    10,    -1,    67,
+      68,    -1,     3,    -1,     6,    -1,     4,    -1,     5,    -1,
+      68,    39,    69,    -1,    69,    -1,    10,    11,    70,    -1,
+      28,    32,    10,    33,    -1,    29,    32,    10,    33,    -1,
+       8,    -1,     7,    -1,     9,    -1,    10,    -1,    70,    26,
+      70,    -1,    70,    27,    70,    -1,    70,    23,    70,    -1,
+      70,    22,    70,    -1,    70,    25,    70,    -1,    70,    24,
+      70,    -1,    70,    20,    70,    -1,    70,    21,    70,    -1,
+      70,    12,    70,    -1,    70,    13,    70,    -1,    70,    18,
+      70,    -1,    70,    17,    70,    -1,    70,    14,    70,    -1,
+      70,    15,    70,    -1,    70,    16,    70,    -1,    70,    19,
+      70,    -1,    32,    70,    33,    -1,    49,    32,    70,    33,
+      -1,    49,    32,    53,    33,    -1,    50,    32,    10,    33,
+      -1,    46,    32,    70,    33,    34,    59,    35,    -1,    45,
+      32,    69,    38,    70,    38,    69,    33,    34,    59,    35,
+      -1,    40,    32,    70,    33,    34,    59,    35,    -1,    40,
+      32,    70,    33,    34,    59,    35,    42,    34,    59,    35,
+      -1,    -1,    -1,    56,    32,    70,    39,    70,    33,    -1,
+      55,    32,    70,    39,    70,    33,    -1
 };
 
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_uint16 yyrline[] =
 {
-       0,    50,    50,    51,    54,    55,    59,    63,    64,    65,
-      69,    70,    74,    81,    88
+       0,    90,    90,    91,    95,    96,    97,    98,    99,   100,
+     101,   102,   103,   104,   105,   106,   107,   108,   111,   116,
+     122,   123,   126,   127,   131,   132,   135,   139,   143,   144,
+     145,   146,   150,   151,   155,   156,   162,   171,   172,   173,
+     174,   184,   191,   198,   205,   212,   219,   226,   233,   241,
+     242,   243,   244,   245,   246,   247,   248,   249,   254,   262,
+     266,   286,   292,   298,   304,   316,   318,   321,   324
 };
 #endif
 
@@ -543,13 +620,16 @@ static const char *const yytname[] =
   "DOUBLE_VALUE", "INTEGER_VALUE", "CHAR_VALUE", "VARIABLE_NAME", "ASSIGN",
   "PLUS", "MINUS", "MULTIPLE", "DIVISION", "MOD", "BINARY_OR",
   "BINARY_AND", "POW", "EQUAL", "NOT_EQUAL", "GREATER_THAN", "LESS_THAN",
-  "GREATER_THAN_AND_EQUAL", "LESS_THAN_AND_EQUAL", "INC_ONE", "DEC_ONE",
-  "AND", "OR", "NOT", "TRUE", "FALSE", "FIRST_BRACKET_OPEN",
-  "FIRST_BRACKET_CLOSE", "SECOND_BRACKET_OPEN", "SECOND_BRACKET_CLOSE",
-  "THIRD_BRACKET_OPEN", "THIRD_BRACKET_CLOSE", "SEMICOLON", "COMMA", "IF",
-  "ELSE_IF", "ELSE", "SWITCH", "CASE", "FOR", "WHILE", "CONTINUE", "BREAK",
-  "PRINTF", "SCANF", "SIZE_OF", "RETURN", "$accept", "program",
-  "statement", "declaration", "TYPE", "expressions", "expression", 0
+  "GREATER_THAN_AND_EQUAL", "LESS_THAN_AND_EQUAL", "AND", "OR", "INC_ONE",
+  "DEC_ONE", "TRUE", "FALSE", "FIRST_BRACKET_OPEN", "FIRST_BRACKET_CLOSE",
+  "SECOND_BRACKET_OPEN", "SECOND_BRACKET_CLOSE", "THIRD_BRACKET_OPEN",
+  "THIRD_BRACKET_CLOSE", "SEMICOLON", "COMMA", "IF", "ELSE_IF", "ELSE",
+  "SWITCH", "CASE", "FOR", "WHILE", "CONTINUE", "BREAK", "PRINTF", "SCANF",
+  "SIZE_OF", "RETURN", "OUTPUTTEXT", "LIBRARY", "LCM", "GCD", "$accept",
+  "program", "statement", "library", "function", "params",
+  "declaration_for_function", "function_call", "ret", "declaration",
+  "TYPE", "expressions", "expression", "assign_value", "print", "scan",
+  "while", "for", "if", "switch", "case", "gcd", "lcm", 0
 };
 #endif
 
@@ -563,22 +643,32 @@ static const yytype_uint16 yytoknum[] =
      275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
      285,   286,   287,   288,   289,   290,   291,   292,   293,   294,
      295,   296,   297,   298,   299,   300,   301,   302,   303,   304,
-     305,   306,   307,   308
+     305,   306,   307,   308,   309,   310,   311
 };
 # endif
 
 /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_uint8 yyr1[] =
 {
-       0,    54,    55,    55,    56,    56,    57,    58,    58,    58,
-      59,    59,    60,    60,    60
+       0,    57,    58,    58,    59,    59,    59,    59,    59,    59,
+      59,    59,    59,    59,    59,    59,    59,    59,    60,    61,
+      62,    62,    63,    63,    64,    64,    65,    66,    67,    67,
+      67,    67,    68,    68,    69,    69,    69,    70,    70,    70,
+      70,    70,    70,    70,    70,    70,    70,    70,    70,    70,
+      70,    70,    70,    70,    70,    70,    70,    70,    71,    71,
+      72,    73,    74,    75,    75,    76,    77,    78,    79
 };
 
 /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
 static const yytype_uint8 yyr2[] =
 {
-       0,     2,     0,     2,     0,     1,     2,     1,     1,     1,
-       3,     1,     3,     3,     3
+       0,     2,     0,     2,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1,     1,     1,     1,     1,     9,
+       3,     1,     0,     2,     4,     3,     2,     2,     1,     1,
+       1,     1,     3,     1,     3,     4,     4,     1,     1,     1,
+       1,     3,     3,     3,     3,     3,     3,     3,     3,     3,
+       3,     3,     3,     3,     3,     3,     3,     3,     4,     4,
+       4,     7,    11,     7,    11,     0,     0,     6,     6
 };
 
 /* YYDEFACT[STATE-NAME] -- Default rule to reduce with in state
@@ -586,29 +676,59 @@ static const yytype_uint8 yyr2[] =
    means the default is an error.  */
 static const yytype_uint8 yydefact[] =
 {
-       2,     0,     1,     7,     9,     8,     3,     5,     0,     0,
-       6,    11,     0,     0,    13,    12,    14,    10
+       2,     0,     1,    28,    30,    31,    29,     0,     0,     0,
+       0,     0,     0,     0,     0,    18,     0,     0,     3,    11,
+      12,    13,     4,     0,     5,    33,     6,     7,     8,     9,
+      10,    14,    15,    16,    17,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,    27,     0,    38,
+      37,    39,    40,     0,    34,     0,    25,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,    22,    32,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,    24,    35,    36,
+       0,     0,     0,    59,    58,    60,     0,     0,     0,    21,
+       0,    57,    49,    50,    53,    54,    55,    52,    51,    56,
+      47,    48,    44,    43,    46,    45,    41,    42,    65,     0,
+      65,     0,     0,     0,    22,    23,     0,     0,     0,    68,
+      67,    65,    20,    63,     0,    61,     0,     0,     0,     0,
+       0,    65,    65,    26,    19,     0,     0,    64,    62
 };
 
 /* YYDEFGOTO[NTERM-NUM].  */
-static const yytype_int8 yydefgoto[] =
+static const yytype_int16 yydefgoto[] =
 {
-      -1,     1,     6,     7,     8,    10,    11
+      -1,     1,    18,    19,    20,    98,    99,    21,   140,    22,
+      23,    24,    25,    54,    26,    27,    28,    29,    30,    31,
+      32,    33,    34
 };
 
 /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
    STATE-NUM.  */
-#define YYPACT_NINF -39
-static const yytype_int8 yypact[] =
+#define YYPACT_NINF -60
+static const yytype_int16 yypact[] =
 {
-     -39,     0,   -39,   -39,   -39,   -39,   -39,   -39,    -9,    -6,
-     -38,   -39,     1,    -9,   -39,   -39,   -39,   -39
+     -60,    21,   -60,   -60,   -60,   -60,   -60,    -9,   -15,   -12,
+     -10,    -4,    -3,    -2,    19,   -60,    20,    23,   -60,   -60,
+     -60,   -60,   -60,    44,   -27,   -60,   -60,   -60,   -60,   -60,
+     -60,   -60,   -60,   -60,   -60,    85,    72,     4,    46,    85,
+      99,    85,    81,    47,    85,    85,     0,   -27,    99,   -60,
+     -60,   -60,   -60,    85,   338,    51,   -60,   -23,    30,    31,
+     206,    36,   228,    35,   250,    50,   123,   151,   148,   -60,
+     272,    85,    85,    85,    85,    85,    85,    85,    85,    85,
+      85,    85,    85,    85,    85,    85,    85,   -60,   -60,   -60,
+      62,    85,    64,   -60,   -60,   -60,    85,    85,   -20,   -60,
+      99,   -60,   338,   338,   338,   338,   338,   338,   338,   338,
+     338,   338,   338,   338,   338,   338,   338,   338,    75,   179,
+      75,   294,   316,    65,   148,   -60,    34,    99,    67,   -60,
+     -60,    75,   -60,    68,    73,   -60,    59,    78,    80,   106,
+      83,    75,    75,   -60,   -60,    84,    87,   -60,   -60
 };
 
 /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -39,   -39,   -39,   -39,   -39,   -39,    -2
+     -60,   -60,   -34,   -60,   -60,   -60,    -1,   -60,   -60,   -60,
+     -59,   -18,   -40,   -38,   -60,   -60,   -60,   -60,   -60,   -60,
+     -60,   -60,   -60
 };
 
 /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -618,22 +738,105 @@ static const yytype_int8 yypgoto[] =
 #define YYTABLE_NINF -1
 static const yytype_uint8 yytable[] =
 {
-       2,     9,    13,     3,     4,    12,     5,     0,    14,    15,
-      16,    17
+      61,    60,    35,    62,    64,    47,    66,    67,    69,   100,
+      87,    35,    48,   123,    58,    70,    48,    37,    57,   124,
+      38,     2,    39,    36,     3,     4,     5,     6,    40,    41,
+      42,     7,    68,   102,   103,   104,   105,   106,   107,   108,
+     109,   110,   111,   112,   113,   114,   115,   116,   117,     8,
+       9,    43,    44,   119,    46,    45,    59,    65,   121,   122,
+     125,    10,    35,    88,    89,   100,    11,    12,    93,   133,
+      13,    14,     8,     9,    91,    15,    16,    17,     3,     4,
+       5,     6,    55,    95,   126,     7,   128,   134,    49,    50,
+      51,    52,    49,    50,    51,    52,   118,   136,   120,   131,
+       8,     9,   135,     8,     9,    56,   138,   145,   146,    55,
+     137,   139,   141,    53,   142,    10,   143,    53,   144,   147,
+      11,    12,   148,   132,    13,    14,     0,     8,     9,    15,
+      16,    17,     0,     0,    63,    71,    72,    73,    74,    75,
+      76,    77,    78,    79,    80,    81,    82,    83,    84,    85,
+      86,     3,     4,     5,     6,     0,     0,     0,     0,     0,
+       0,     0,    96,    71,    72,    73,    74,    75,    76,    77,
+      78,    79,    80,    81,    82,    83,    84,    85,    86,     0,
+       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
+      97,    71,    72,    73,    74,    75,    76,    77,    78,    79,
+      80,    81,    82,    83,    84,    85,    86,     0,     0,     0,
+       0,     0,     0,     0,     0,     0,     0,   127,    71,    72,
+      73,    74,    75,    76,    77,    78,    79,    80,    81,    82,
+      83,    84,    85,    86,     0,     0,     0,     0,     0,    90,
+      71,    72,    73,    74,    75,    76,    77,    78,    79,    80,
+      81,    82,    83,    84,    85,    86,     0,     0,     0,     0,
+       0,    92,    71,    72,    73,    74,    75,    76,    77,    78,
+      79,    80,    81,    82,    83,    84,    85,    86,     0,     0,
+       0,     0,     0,    94,    71,    72,    73,    74,    75,    76,
+      77,    78,    79,    80,    81,    82,    83,    84,    85,    86,
+       0,     0,     0,     0,     0,   101,    71,    72,    73,    74,
+      75,    76,    77,    78,    79,    80,    81,    82,    83,    84,
+      85,    86,     0,     0,     0,     0,     0,   129,    71,    72,
+      73,    74,    75,    76,    77,    78,    79,    80,    81,    82,
+      83,    84,    85,    86,     0,     0,     0,     0,     0,   130,
+      71,    72,    73,    74,    75,    76,    77,    78,    79,    80,
+      81,    82,    83,    84,    85,    86
 };
 
-static const yytype_int8 yycheck[] =
+static const yytype_int16 yycheck[] =
 {
-       0,    10,    40,     3,     4,    11,     6,    -1,     7,     8,
-       9,    13
+      40,    39,    11,    41,    42,    23,    44,    45,    48,    68,
+      33,    11,    39,    33,    10,    53,    39,    32,    36,    39,
+      32,     0,    32,    32,     3,     4,     5,     6,    32,    32,
+      32,    10,    32,    71,    72,    73,    74,    75,    76,    77,
+      78,    79,    80,    81,    82,    83,    84,    85,    86,    28,
+      29,    32,    32,    91,    10,    32,    10,    10,    96,    97,
+     100,    40,    11,    33,    33,   124,    45,    46,    33,    35,
+      49,    50,    28,    29,    38,    54,    55,    56,     3,     4,
+       5,     6,    10,    33,   118,    10,   120,   127,     7,     8,
+       9,    10,     7,     8,     9,    10,    34,   131,    34,    34,
+      28,    29,    35,    28,    29,    33,    33,   141,   142,    10,
+      42,    52,    34,    32,    34,    40,    10,    32,    35,    35,
+      45,    46,    35,   124,    49,    50,    -1,    28,    29,    54,
+      55,    56,    -1,    -1,    53,    12,    13,    14,    15,    16,
+      17,    18,    19,    20,    21,    22,    23,    24,    25,    26,
+      27,     3,     4,     5,     6,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    39,    12,    13,    14,    15,    16,    17,    18,
+      19,    20,    21,    22,    23,    24,    25,    26,    27,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,    -1,
+      39,    12,    13,    14,    15,    16,    17,    18,    19,    20,
+      21,    22,    23,    24,    25,    26,    27,    -1,    -1,    -1,
+      -1,    -1,    -1,    -1,    -1,    -1,    -1,    38,    12,    13,
+      14,    15,    16,    17,    18,    19,    20,    21,    22,    23,
+      24,    25,    26,    27,    -1,    -1,    -1,    -1,    -1,    33,
+      12,    13,    14,    15,    16,    17,    18,    19,    20,    21,
+      22,    23,    24,    25,    26,    27,    -1,    -1,    -1,    -1,
+      -1,    33,    12,    13,    14,    15,    16,    17,    18,    19,
+      20,    21,    22,    23,    24,    25,    26,    27,    -1,    -1,
+      -1,    -1,    -1,    33,    12,    13,    14,    15,    16,    17,
+      18,    19,    20,    21,    22,    23,    24,    25,    26,    27,
+      -1,    -1,    -1,    -1,    -1,    33,    12,    13,    14,    15,
+      16,    17,    18,    19,    20,    21,    22,    23,    24,    25,
+      26,    27,    -1,    -1,    -1,    -1,    -1,    33,    12,    13,
+      14,    15,    16,    17,    18,    19,    20,    21,    22,    23,
+      24,    25,    26,    27,    -1,    -1,    -1,    -1,    -1,    33,
+      12,    13,    14,    15,    16,    17,    18,    19,    20,    21,
+      22,    23,    24,    25,    26,    27
 };
 
 /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
    symbol of state STATE-NUM.  */
 static const yytype_uint8 yystos[] =
 {
-       0,    55,     0,     3,     4,     6,    56,    57,    58,    10,
-      59,    60,    11,    40,     7,     8,     9,    60
+       0,    58,     0,     3,     4,     5,     6,    10,    28,    29,
+      40,    45,    46,    49,    50,    54,    55,    56,    59,    60,
+      61,    64,    66,    67,    68,    69,    71,    72,    73,    74,
+      75,    76,    77,    78,    79,    11,    32,    32,    32,    32,
+      32,    32,    32,    32,    32,    32,    10,    68,    39,     7,
+       8,     9,    10,    32,    70,    10,    33,    68,    10,    10,
+      70,    69,    70,    53,    70,    10,    70,    70,    32,    69,
+      70,    12,    13,    14,    15,    16,    17,    18,    19,    20,
+      21,    22,    23,    24,    25,    26,    27,    33,    33,    33,
+      33,    38,    33,    33,    33,    33,    39,    39,    62,    63,
+      67,    33,    70,    70,    70,    70,    70,    70,    70,    70,
+      70,    70,    70,    70,    70,    70,    70,    70,    34,    70,
+      34,    70,    70,    33,    39,    69,    59,    38,    59,    33,
+      33,    34,    63,    35,    69,    35,    59,    42,    33,    52,
+      65,    34,    34,    10,    35,    59,    59,    35,    35
 };
 
 #define yyerrok		(yyerrstatus = 0)
@@ -1447,42 +1650,305 @@ yyreduce:
   YY_REDUCE_PRINT (yyn);
   switch (yyn)
     {
-        case 12:
-#line 74 "project.y"
+        case 18:
+#line 111 "project.y"
+    { printf("%s is included.\n", (yyvsp[(1) - (1)].union_variable).name);;}
+    break;
+
+  case 19:
+#line 116 "project.y"
     {
-                                                    symbol_table[symbol_table_index].data_type = "int";
-                                                    symbol_table[symbol_table_index].name = (yyvsp[(1) - (3)].union_variable).str_value;
-                                                    symbol_table[symbol_table_index].int_value = (yyvsp[(3) - (3)].union_variable).int_value;
-                                                    symbol_table_index++;
-                                                    printf("variable declared succefully %d", symbol_table_index);
+                                                                                                                            printf("User defined function.\n");
+                                                                                                                        ;}
+    break;
+
+  case 21:
+#line 123 "project.y"
+    {printf("Function declared\n");;}
+    break;
+
+  case 34:
+#line 155 "project.y"
+    {assignment((yyvsp[(1) - (3)].union_variable).name, (yyvsp[(3) - (3)].union_variable).data_type, (yyvsp[(3) - (3)].union_variable).int_value, (yyvsp[(3) - (3)].union_variable).double_value, (yyvsp[(3) - (3)].union_variable).char_value);;}
+    break;
+
+  case 35:
+#line 156 "project.y"
+    {
+                                                                                int i = find_symbol_table_index((yyvsp[(3) - (4)].union_variable).name);
+                                                                                if (i != symbol_table_index) {
+                                                                                    symbol_table[i].int_value = symbol_table[i].int_value + 1;
+                                                                                }
+                                                                            ;}
+    break;
+
+  case 36:
+#line 162 "project.y"
+    {
+                                                                                int i = find_symbol_table_index((yyvsp[(3) - (4)].union_variable).name);
+                                                                                if (i != symbol_table_index) {
+                                                                                    symbol_table[i].int_value = symbol_table[i].int_value - 1;
+                                                                                }
+                                                                            ;}
+    break;
+
+  case 37:
+#line 171 "project.y"
+    {(yyval.union_variable).data_type=(yyvsp[(1) - (1)].union_variable).data_type; (yyval.union_variable).int_value=(yyvsp[(1) - (1)].union_variable).int_value; (yyval.union_variable).double_value=(yyvsp[(1) - (1)].union_variable).double_value; (yyval.union_variable).char_value=(yyvsp[(1) - (1)].union_variable).char_value;;}
+    break;
+
+  case 38:
+#line 172 "project.y"
+    {(yyval.union_variable).data_type=(yyvsp[(1) - (1)].union_variable).data_type; (yyval.union_variable).int_value=(yyvsp[(1) - (1)].union_variable).int_value; (yyval.union_variable).double_value=(yyvsp[(1) - (1)].union_variable).double_value; (yyval.union_variable).char_value=(yyvsp[(1) - (1)].union_variable).char_value;;}
+    break;
+
+  case 39:
+#line 173 "project.y"
+    {(yyval.union_variable).data_type=(yyvsp[(1) - (1)].union_variable).data_type; (yyval.union_variable).int_value=(yyvsp[(1) - (1)].union_variable).int_value; (yyval.union_variable).double_value=(yyvsp[(1) - (1)].union_variable).double_value; (yyval.union_variable).char_value=(yyvsp[(1) - (1)].union_variable).char_value;;}
+    break;
+
+  case 40:
+#line 174 "project.y"
+    {
+                                                    for (int i = 0; i < symbol_table_index; i++) 
+                                                    {
+                                                        if(strcmp((yyvsp[(1) - (1)].union_variable).name, symbol_table[i].name)==0)
+                                                        {
+                                                            (yyval.union_variable).int_value = symbol_table[i].int_value, (yyval.union_variable).double_value = symbol_table[i].double_value, (yyval.union_variable).data_type = symbol_table[i].data_type;
+                                                            break;
+                                                        }
+                                                    }
                                                 ;}
     break;
 
-  case 13:
-#line 81 "project.y"
+  case 41:
+#line 184 "project.y"
     {
-                                                    symbol_table[symbol_table_index].data_type = "double";
-                                                    symbol_table[symbol_table_index].name = (yyvsp[(1) - (3)].union_variable).str_value;
-                                                    symbol_table[symbol_table_index].double_value = (yyvsp[(3) - (3)].union_variable).double_value;
-                                                    symbol_table_index++;
-                                                    printf("variable declared succefully %d", symbol_table_index);
+                                                    if (strcmp((yyvsp[(1) - (3)].union_variable).data_type, "int")==0) 
+                                                    {
+                                                        (yyval.union_variable).int_value = ((yyvsp[(1) - (3)].union_variable).int_value && (yyvsp[(3) - (3)].union_variable).int_value);
+                                                        (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type;
+                                                    }
                                                 ;}
     break;
 
-  case 14:
-#line 88 "project.y"
+  case 42:
+#line 191 "project.y"
     {
-                                                    symbol_table[symbol_table_index].data_type = "char";
-                                                    symbol_table[symbol_table_index].name = (yyvsp[(1) - (3)].union_variable).str_value;
-                                                    symbol_table[symbol_table_index].char_value = (yyvsp[(3) - (3)].union_variable).char_value;
-                                                    symbol_table_index++;
-                                                    printf("variable declared succefully %d", symbol_table_index);
+                                                    if (strcmp((yyvsp[(1) - (3)].union_variable).data_type, "int")==0) 
+                                                    {
+                                                        (yyval.union_variable).int_value = ((yyvsp[(1) - (3)].union_variable).int_value || (yyvsp[(3) - (3)].union_variable).int_value);
+                                                        (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type;
+                                                    }
                                                 ;}
+    break;
+
+  case 43:
+#line 198 "project.y"
+    {
+                                                    if (strcmp((yyvsp[(1) - (3)].union_variable).data_type, "int")==0) 
+                                                    {
+                                                        (yyval.union_variable).int_value = ((yyvsp[(1) - (3)].union_variable).int_value < (yyvsp[(3) - (3)].union_variable).int_value);
+                                                        (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type;
+                                                    }
+                                                ;}
+    break;
+
+  case 44:
+#line 205 "project.y"
+    {
+                                                            if (strcmp((yyvsp[(1) - (3)].union_variable).data_type, "int")==0) 
+                                                            {
+                                                                (yyval.union_variable).int_value = ((yyvsp[(1) - (3)].union_variable).int_value > (yyvsp[(3) - (3)].union_variable).int_value);
+                                                                (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type;
+                                                            }
+                                                        ;}
+    break;
+
+  case 45:
+#line 212 "project.y"
+    {
+                                                                    if (strcmp((yyvsp[(1) - (3)].union_variable).data_type, "int")==0) 
+                                                                    {
+                                                                        (yyval.union_variable).int_value = ((yyvsp[(1) - (3)].union_variable).int_value <= (yyvsp[(3) - (3)].union_variable).int_value);
+                                                                        (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type;
+                                                                    }
+                                                                ;}
+    break;
+
+  case 46:
+#line 219 "project.y"
+    {
+                                                                    if (strcmp((yyvsp[(1) - (3)].union_variable).data_type, "int")==0) 
+                                                                    {
+                                                                        (yyval.union_variable).int_value = ((yyvsp[(1) - (3)].union_variable).int_value >= (yyvsp[(3) - (3)].union_variable).int_value);
+                                                                        (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type;
+                                                                    }
+                                                                ;}
+    break;
+
+  case 47:
+#line 226 "project.y"
+    {
+                                                                    if (strcmp((yyvsp[(1) - (3)].union_variable).data_type, "int")==0) 
+                                                                    {
+                                                                        (yyval.union_variable).int_value = ((yyvsp[(1) - (3)].union_variable).int_value == (yyvsp[(3) - (3)].union_variable).int_value);
+                                                                        (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type;
+                                                                    }
+                                                                ;}
+    break;
+
+  case 48:
+#line 233 "project.y"
+    {
+                                                                    if (strcmp((yyvsp[(1) - (3)].union_variable).data_type, "int")==0) 
+                                                                    {
+                                                                        (yyval.union_variable).int_value = ((yyvsp[(1) - (3)].union_variable).int_value != (yyvsp[(3) - (3)].union_variable).int_value);
+                                                                        (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type;
+                                                                    }
+                                                                ;}
+    break;
+
+  case 49:
+#line 241 "project.y"
+    { (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type,  (yyval.union_variable).int_value = (yyvsp[(1) - (3)].union_variable).int_value + (yyvsp[(3) - (3)].union_variable).int_value, (yyval.union_variable).double_value = (yyvsp[(1) - (3)].union_variable).double_value + (yyvsp[(3) - (3)].union_variable).double_value, (yyval.union_variable).char_value = (yyvsp[(1) - (3)].union_variable).char_value + (yyvsp[(1) - (3)].union_variable).char_value;;}
+    break;
+
+  case 50:
+#line 242 "project.y"
+    { (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type,  (yyval.union_variable).int_value = (yyvsp[(1) - (3)].union_variable).int_value - (yyvsp[(3) - (3)].union_variable).int_value, (yyval.union_variable).double_value = (yyvsp[(1) - (3)].union_variable).double_value - (yyvsp[(3) - (3)].union_variable).double_value, (yyval.union_variable).char_value = (yyvsp[(1) - (3)].union_variable).char_value - (yyvsp[(1) - (3)].union_variable).char_value;;}
+    break;
+
+  case 51:
+#line 243 "project.y"
+    { (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type,  (yyval.union_variable).int_value = (yyvsp[(1) - (3)].union_variable).int_value & (yyvsp[(3) - (3)].union_variable).int_value;;}
+    break;
+
+  case 52:
+#line 244 "project.y"
+    { (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type,  (yyval.union_variable).int_value = (yyvsp[(1) - (3)].union_variable).int_value | (yyvsp[(3) - (3)].union_variable).int_value;;}
+    break;
+
+  case 53:
+#line 245 "project.y"
+    { (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type,  (yyval.union_variable).int_value = (yyvsp[(1) - (3)].union_variable).int_value * (yyvsp[(3) - (3)].union_variable).int_value, (yyval.union_variable).double_value = (yyvsp[(1) - (3)].union_variable).double_value * (yyvsp[(3) - (3)].union_variable).double_value, (yyval.union_variable).char_value = (yyvsp[(1) - (3)].union_variable).char_value * (yyvsp[(1) - (3)].union_variable).char_value;;}
+    break;
+
+  case 54:
+#line 246 "project.y"
+    { (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type,  (yyval.union_variable).int_value = (yyvsp[(1) - (3)].union_variable).int_value / (yyvsp[(3) - (3)].union_variable).int_value, (yyval.union_variable).double_value = (yyvsp[(1) - (3)].union_variable).double_value / (yyvsp[(3) - (3)].union_variable).double_value, (yyval.union_variable).char_value = (yyvsp[(1) - (3)].union_variable).char_value / (yyvsp[(1) - (3)].union_variable).char_value;;}
+    break;
+
+  case 55:
+#line 247 "project.y"
+    { (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type,  (yyval.union_variable).int_value = (yyvsp[(1) - (3)].union_variable).int_value % (yyvsp[(3) - (3)].union_variable).int_value;;}
+    break;
+
+  case 56:
+#line 248 "project.y"
+    { (yyval.union_variable).data_type = (yyvsp[(1) - (3)].union_variable).data_type,  (yyval.union_variable).int_value = pow((yyvsp[(1) - (3)].union_variable).int_value, (yyvsp[(3) - (3)].union_variable).int_value), (yyval.union_variable).double_value = pow((yyvsp[(1) - (3)].union_variable).double_value, (yyvsp[(3) - (3)].union_variable).double_value), (yyval.union_variable).char_value = pow((yyvsp[(1) - (3)].union_variable).char_value, (yyvsp[(1) - (3)].union_variable).char_value);;}
+    break;
+
+  case 58:
+#line 254 "project.y"
+    {
+                                                                        if (strcmp((yyvsp[(3) - (4)].union_variable).data_type, "int") == 0)
+                                                                            printf("%d\n", (yyvsp[(3) - (4)].union_variable).int_value);
+                                                                        else if (strcmp((yyvsp[(3) - (4)].union_variable).data_type, "double") == 0)
+                                                                            printf("%lf\n", (yyvsp[(3) - (4)].union_variable).double_value);
+                                                                        else if(strcmp((yyvsp[(3) - (4)].union_variable).data_type, "char") == 0)
+                                                                            printf("%c\n", (yyvsp[(3) - (4)].union_variable).char_value);
+                                                                    ;}
+    break;
+
+  case 59:
+#line 262 "project.y"
+    { printf("%s\n", (yyvsp[(3) - (4)].union_variable).name);;}
+    break;
+
+  case 60:
+#line 266 "project.y"
+    {
+                                                                    int i = find_symbol_table_index((yyvsp[(3) - (4)].union_variable).name);
+                                                                    if (i != symbol_table_index) {
+                                                                        printf("Enter value for %s := ", symbol_table[i].name);
+                                                                        if (strcmp(symbol_table[i].data_type, "int") == 0) {
+                                                                            scanf("%d", &symbol_table[i].int_value);
+                                                                        }
+                                                                        else if (strcmp(symbol_table[i].data_type, "double") == 0) {
+                                                                            scanf("%lf", &symbol_table[i].double_value);
+                                                                        }
+                                                                        else if (strcmp(symbol_table[i].data_type, "char") == 0){
+                                                                            scanf("%c", &symbol_table[i].char_value);
+                                                                        }
+                                                                    }
+                                                                    else {
+                                                                        printf("Variable not declared\n");
+                                                                    }
+                                                                ;}
+    break;
+
+  case 61:
+#line 286 "project.y"
+    {
+                                                                                                                            if((yyvsp[(3) - (7)].union_variable).int_value)
+                                                                                                                            {
+                                                                                                                                printf("while loop is running");
+                                                                                                                            }
+                                                                                                                        ;}
+    break;
+
+  case 62:
+#line 292 "project.y"
+    {
+                                                                                                                                                                if((yyvsp[(5) - (11)].union_variable).int_value)
+                                                                                                                                                                {
+                                                                                                                                                                    printf("for loop running");
+                                                                                                                                                                }
+                                                                                                                                                            ;}
+    break;
+
+  case 63:
+#line 298 "project.y"
+    {
+                                                                                                                    if((yyvsp[(3) - (7)].union_variable).int_value)
+                                                                                                                    {
+                                                                                                                        printf("If statement will be executed.\n");
+                                                                                                                    }
+                                                                                                                ;}
+    break;
+
+  case 64:
+#line 304 "project.y"
+    {
+                                                                                                                                                                            if((yyvsp[(3) - (11)].union_variable).int_value)
+                                                                                                                                                                            {
+                                                                                                                                                                                printf("If statement will be executed.\n");
+                                                                                                                                                                            }
+                                                                                                                                                                            else
+                                                                                                                                                                            {
+                                                                                                                                                                                printf("Else statement will be executed.\n");
+                                                                                                                                                                            }
+                                                                                                                                                                        ;}
+    break;
+
+  case 67:
+#line 321 "project.y"
+    {
+                                                                                            printf("%d %d GCD is %d\n",(yyvsp[(3) - (6)].union_variable).int_value, (yyvsp[(5) - (6)].union_variable).int_value, gcd((yyvsp[(3) - (6)].union_variable).int_value, (yyvsp[(5) - (6)].union_variable).int_value));
+                                                                                        ;}
+    break;
+
+  case 68:
+#line 324 "project.y"
+    {
+                                                                                            printf("%d %d LCM is %d\n",(yyvsp[(3) - (6)].union_variable).int_value, (yyvsp[(5) - (6)].union_variable).int_value, (yyvsp[(3) - (6)].union_variable).int_value * (yyvsp[(5) - (6)].union_variable).int_value / gcd((yyvsp[(3) - (6)].union_variable).int_value, (yyvsp[(5) - (6)].union_variable).int_value));
+                                                                                        ;}
     break;
 
 
 /* Line 1267 of yacc.c.  */
-#line 1486 "project.tab.c"
+#line 1952 "project.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -1696,7 +2162,7 @@ yyreturn:
 }
 
 
-#line 100 "project.y"
+#line 327 "project.y"
 
 
 

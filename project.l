@@ -20,7 +20,10 @@ LOGICAL_OPERATOR "&&"|("||")|"!"
 
 %%
 
-"#import ".+".h"							{printf(" Header_file_imported ");}
+"#import ".+".h"							{
+												yylval.union_variable.name = strdup(yytext);
+												return LIBRARY;
+											}
 
 "<!"({WHITE_SPACE}|{NEWLINE}|.)*"!>"									{}
 
@@ -50,9 +53,6 @@ LOGICAL_OPERATOR "&&"|("||")|"!"
 
 "||"										{return OR ;}
 
-"!"											{return NOT ;}
-
-
 "TruE"										{return TRUE ;}
 
 "FalsE"										{return FALSE;}
@@ -67,7 +67,7 @@ LOGICAL_OPERATOR "&&"|("||")|"!"
 
 "%op%"										{return MOD ;}
 
-"//op//"									{return POW ;}
+"^op^"									{return POW ;}
 
 "&op&"										{return BINARY_AND ;}
 
@@ -75,7 +75,7 @@ LOGICAL_OPERATOR "&&"|("||")|"!"
 
 "IncOnE"									{return INC_ONE ;}
 
-"DecOnE"									{return DEC_ONE;}
+"DecOnE"									{return DEC_ONE ;}
 
 "(("										{return FIRST_BRACKET_OPEN ;}
 
@@ -93,7 +93,7 @@ LOGICAL_OPERATOR "&&"|("||")|"!"
 
 ",,"										{return COMMA ;}
 
-"Come_bacK"									{return RETURN ;}
+"<ReturN>"									{return RETURN ;}
 
 "<PrintF>"									{return PRINTF ;}
 
@@ -111,33 +111,48 @@ LOGICAL_OPERATOR "&&"|("||")|"!"
 
 "<IF>"										{return IF ;}
 
-"<ElseiF>"									{return ELSE_IF ;}
-
 "<ElsE>"									{return ELSE ;}
 
-"<Switch>"									{return SWITCH ;}
+"GCD"										{return GCD ;}
+
+"LCM"										{return LCM ;}
+
+"<SwitcH>"									{return SWITCH ;}
 
 "<CasE>"									{return CASE ;}
 
 {REAL_NUMBER}								{
 												yylval.union_variable.double_value = atof(yytext);
+												yylval.union_variable.data_type = "double";
 												return DOUBLE_VALUE ;
 											}
 
 {INTEGER}									{
 												yylval.union_variable.int_value = atoi(yytext);
+												yylval.union_variable.data_type = "int";
 												return INTEGER_VALUE ;
 											}
 
 {ID}										{
-												yylval.union_variable.str_value = strdup(yytext);
+												yylval.union_variable.name = strdup(yytext);
 												return VARIABLE_NAME ;
 											}
 
 [$]{CHAR}[$]								{
 												yylval.union_variable.char_value = yytext[1];
+												yylval.union_variable.data_type = "char";
 												return CHAR_VALUE ;
 											}
+
+"$"({WHITE_SPACE}|.)*"$" 					{
+											  	yytext++;
+											  	int l=strlen(yytext);
+											  	yylval.union_variable.name=yytext;
+											  	yylval.union_variable.name[l-1]='\0';
+											  	return OUTPUTTEXT;
+											}
+
+
 
 {WHITE_SPACE}								{}
 

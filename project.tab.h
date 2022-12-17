@@ -62,34 +62,37 @@
      LESS_THAN = 278,
      GREATER_THAN_AND_EQUAL = 279,
      LESS_THAN_AND_EQUAL = 280,
-     INC_ONE = 281,
-     DEC_ONE = 282,
-     AND = 283,
-     OR = 284,
-     NOT = 285,
-     TRUE = 286,
-     FALSE = 287,
-     FIRST_BRACKET_OPEN = 288,
-     FIRST_BRACKET_CLOSE = 289,
-     SECOND_BRACKET_OPEN = 290,
-     SECOND_BRACKET_CLOSE = 291,
-     THIRD_BRACKET_OPEN = 292,
-     THIRD_BRACKET_CLOSE = 293,
-     SEMICOLON = 294,
-     COMMA = 295,
-     IF = 296,
-     ELSE_IF = 297,
-     ELSE = 298,
-     SWITCH = 299,
-     CASE = 300,
-     FOR = 301,
-     WHILE = 302,
-     CONTINUE = 303,
-     BREAK = 304,
-     PRINTF = 305,
-     SCANF = 306,
-     SIZE_OF = 307,
-     RETURN = 308
+     AND = 281,
+     OR = 282,
+     INC_ONE = 283,
+     DEC_ONE = 284,
+     TRUE = 285,
+     FALSE = 286,
+     FIRST_BRACKET_OPEN = 287,
+     FIRST_BRACKET_CLOSE = 288,
+     SECOND_BRACKET_OPEN = 289,
+     SECOND_BRACKET_CLOSE = 290,
+     THIRD_BRACKET_OPEN = 291,
+     THIRD_BRACKET_CLOSE = 292,
+     SEMICOLON = 293,
+     COMMA = 294,
+     IF = 295,
+     ELSE_IF = 296,
+     ELSE = 297,
+     SWITCH = 298,
+     CASE = 299,
+     FOR = 300,
+     WHILE = 301,
+     CONTINUE = 302,
+     BREAK = 303,
+     PRINTF = 304,
+     SCANF = 305,
+     SIZE_OF = 306,
+     RETURN = 307,
+     OUTPUTTEXT = 308,
+     LIBRARY = 309,
+     LCM = 310,
+     GCD = 311
    };
 #endif
 /* Tokens.  */
@@ -116,53 +119,56 @@
 #define LESS_THAN 278
 #define GREATER_THAN_AND_EQUAL 279
 #define LESS_THAN_AND_EQUAL 280
-#define INC_ONE 281
-#define DEC_ONE 282
-#define AND 283
-#define OR 284
-#define NOT 285
-#define TRUE 286
-#define FALSE 287
-#define FIRST_BRACKET_OPEN 288
-#define FIRST_BRACKET_CLOSE 289
-#define SECOND_BRACKET_OPEN 290
-#define SECOND_BRACKET_CLOSE 291
-#define THIRD_BRACKET_OPEN 292
-#define THIRD_BRACKET_CLOSE 293
-#define SEMICOLON 294
-#define COMMA 295
-#define IF 296
-#define ELSE_IF 297
-#define ELSE 298
-#define SWITCH 299
-#define CASE 300
-#define FOR 301
-#define WHILE 302
-#define CONTINUE 303
-#define BREAK 304
-#define PRINTF 305
-#define SCANF 306
-#define SIZE_OF 307
-#define RETURN 308
+#define AND 281
+#define OR 282
+#define INC_ONE 283
+#define DEC_ONE 284
+#define TRUE 285
+#define FALSE 286
+#define FIRST_BRACKET_OPEN 287
+#define FIRST_BRACKET_CLOSE 288
+#define SECOND_BRACKET_OPEN 289
+#define SECOND_BRACKET_CLOSE 290
+#define THIRD_BRACKET_OPEN 291
+#define THIRD_BRACKET_CLOSE 292
+#define SEMICOLON 293
+#define COMMA 294
+#define IF 295
+#define ELSE_IF 296
+#define ELSE 297
+#define SWITCH 298
+#define CASE 299
+#define FOR 300
+#define WHILE 301
+#define CONTINUE 302
+#define BREAK 303
+#define PRINTF 304
+#define SCANF 305
+#define SIZE_OF 306
+#define RETURN 307
+#define OUTPUTTEXT 308
+#define LIBRARY 309
+#define LCM 310
+#define GCD 311
 
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 typedef union YYSTYPE
-#line 19 "project.y"
+#line 58 "project.y"
 {
     char text[1000];
     struct datatype {
-        int type;
-        char* str_value;
+        char* name;
+        char* data_type;
         int int_value;
         double double_value;
         char char_value;
     }union_variable;
 }
 /* Line 1529 of yacc.c.  */
-#line 166 "project.tab.h"
+#line 172 "project.tab.h"
 	YYSTYPE;
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1

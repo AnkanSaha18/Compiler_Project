@@ -1,6 +1,56 @@
-<InT> abc := 6 ,, kle := 99
-<DoublE> this34lkj :=6.33 <!
-sadfj
-aflk6.88 
+<! 
+This is multiline comment
 !>
-<ChaR> valk343lkf := $h$ ,, joiwe := $f$
+
+#import mylibrary.h
+<DoublE> d3:= 5.6
+
+<InT> int1 := 2
+<InT> int2 := 1
+<InT> int3 := 5 !!== 5
+<PrintF> ((int3))
+int1 := int1 +op+ int2
+
+<WhilE> ((int1 << 4))
+{{
+    <ChaR> char1 := $A$
+}}
+
+<InT> i := 3
+
+<PrintF>(($This is checking$))
+IncOnE((i))
+<PrintF>((i))
+IncOnE((i))
+<PrintF>((i))
+DecOnE((i))
+<PrintF>((i))
+
+
+
+
+<FoR> (( i:=6 ;; i << 4 ;; IncOnE((i)) ))
+{{ 
+    i := i +op+ 4 
+}}
+
+<IF> ((i << 1))
+{{
+    int1 := 8 +op+ 5
+}}
+<ElsE>
+{{
+    int3 := 4 -op- 5
+}}
+
+<InT> kdjf ((<InT> par1:=4 ,, <DoublE> par2:= 6)){{
+    <InT> abc := 4
+    <ReturN> abc
+}}
+int3 := 5
+<PrintF> ((int1))
+<PrintF> ((int3))
+GCD (( int1 ,, int3 ))
+LCM (( int1 ,, int3 ))
+<PrintF> ((int1))
+<PrintF> ((int3))
