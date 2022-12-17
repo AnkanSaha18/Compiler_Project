@@ -11,8 +11,13 @@ Function declared
 
 
 
+Inside Function
 
 User defined function.
+
+
+Function declared
+
 
 
 
@@ -75,6 +80,7 @@ Result of different type of operations
 
 
 
+Inside While
 
 
 
@@ -83,13 +89,20 @@ Result of different type of operations
 
 
 
+Inside For
 
 
 
 
 
 
+Inside if
 
+
+
+
+
+Inside else
 
 Else statement will be executed.
 
@@ -100,5 +113,22 @@ Else statement will be executed.
 
 
 
-
 If statement will be executed.
+Switch statement check
+
+1
+
+2
+
+3
+
+4
+
+default
+3
+
+User defined function.
+
+
+
+

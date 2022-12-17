@@ -7,77 +7,93 @@
 <InT> userDefineFunctionName ((<InT> par1:=4 ,, <DoublE> par2:= 6))
 {{
     <InT> abc := 4
-    <ReturN> abc
+    <PrintF>(($Inside Function$))
 }}
 
-<InT> int1 := 1 ,, int2 := 2 ,, int3 := 3
-<InT> int4 := 4
-<InT> int5 := 4 ,, int6 := 6
-
-<DoublE> double1 := 1 ,, double2 := 2 ,, double3 := 3
-
-<ChaR> char1 := 1 ,, char2 := 2 ,, char3 := 3 
-
-
-<PrintF>(($Result of different type of operations$))
-int1 := int2 +op+ int3
-<PrintF>((int1))
-
-int1 := int2 -op- int3
-<PrintF>((int1))
-
-int1 := int2 %op% int3
-<PrintF>((int1))
-
-int1 := int2 &op& int3 -op- int4
-<PrintF>((int1))
-
-int1 := int2 *op* int3 -op- int4
-<PrintF>((int1))
-
-int1 := int2 &op& (( int3 -op- int4 ))
-<PrintF>((int1))
-
-
-int1:= 100
-IncOnE((int1))
-<PrintF>((int1))
-IncOnE((int1))
-<PrintF>((int1))
-DecOnE((int1))
-<PrintF>((int1))
-
-GCD (( 42 ,, 35 ))
-LCM (( int1 ,, 7 ))
-MIN (( int1 ,, int3 ))
-MAX (( int1 ,, int3 ))
-
-
-<WhilE> ((int1 << 4))
+<InT> main (())
 {{
-    <ChaR> char1 := $A$
-}}
+
+    <InT> int1 := 1 ,, int2 := 2 ,, int3 := 3
+    <InT> int4 := 4
+    <InT> int5 := 4 ,, int6 := 6
+
+    <DoublE> double1 := 1 ,, double2 := 2 ,, double3 := 3
+
+    <ChaR> char1 := 1 ,, char2 := 2 ,, char3 := 3 
 
 
-<InT> i := 3
-<FoR> (( i:=6 ;; i << 4 ;; IncOnE((i)) ))
-{{ 
-    i := i +op+ 4 
+    <PrintF>(($Result of different type of operations$))
+    int1 := int2 +op+ int3
+    <PrintF>((int1))
+
+    int1 := int2 -op- int3
+    <PrintF>((int1))
+
+    int1 := int2 %op% int3
+    <PrintF>((int1))
+
+    int1 := int2 &op& int3 -op- int4
+    <PrintF>((int1))
+
+    int1 := int2 *op* int3 -op- int4
+    <PrintF>((int1))
+
+    int1 := int2 &op& (( int3 -op- int4 ))
+    <PrintF>((int1))
+
+
+    int1:= 100
+    IncOnE((int1))
+    <PrintF>((int1))
+    IncOnE((int1))
+    <PrintF>((int1))
+    DecOnE((int1))
+    <PrintF>((int1))
+
+    GCD (( 42 ,, 35 ))
+    LCM (( int1 ,, 7 ))
+    MIN (( int1 ,, int3 ))
+    MAX (( int1 ,, int3 ))
+
+
+    <WhilE> ((int1 << 4))
+    {{
+        <ChaR> char1 := $A$
+        <PrintF> (($Inside While$))
+    }}
+
+
+    <InT> i := 3
+    <FoR> (( i:=6 ;; i << 4 ;; IncOnE((i)) ))
+    {{ 
+        i := i +op+ 4 
+        <PrintF> (($Inside For$))
+    }}
+
+    <IF> ((i << 1))
+    {{
+        int1 := 8 +op+ 5
+        <PrintF>(($Inside if$))
+    }}
+    <ElsE>
+    {{
+        int3 := 4 -op- 5
+        <PrintF>(($Inside else$))
+    }}
+
+    i := 1
+    <IF> ((i <<== 1))
+    {{
+        int1 := 8 +op+ 5
+    }}
+
+    <SwitcH> (( 3 ))
+    <CasE> 1 :: {{ <PrintF>(($1$)) }}
+    <CasE> 2 :: {{ <PrintF>(($2$)) }}
+    <CasE> 3 :: {{ <PrintF>(($3$)) }}
+    <CasE> 4 :: {{ <PrintF>(($4$)) }}
+    <DefaulT> :: {{ <PrintF>(($default$))}}
 }}
 
-<IF> ((i << 1))
-{{
-    int1 := 8 +op+ 5
-}}
-<ElsE>
-{{
-    int3 := 4 -op- 5
-}}
-
-i := 1
-<IF> ((i <<== 1))
-{{
-    int1 := 8 +op+ 5
-}}
 
 

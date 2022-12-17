@@ -97,14 +97,15 @@
 %nonassoc MIN MAX
 %start program
 
-%type<union_variable> VARIABLE_NAME INTEGER_VALUE DOUBLE_VALUE CHAR_VALUE assign_value OUTPUTTEXT LIBRARY
+%type<union_variable> VARIABLE_NAME INTEGER_VALUE DOUBLE_VALUE CHAR_VALUE assign_value OUTPUTTEXT LIBRARY block statement
 
 %%
 program: 
         |program statement  
         ;			   
 
-statement:
+
+statement: 
         declaration
         | expressions
         | print
@@ -128,7 +129,7 @@ library: LIBRARY                            { printf("%s is included.\n", $1.nam
 
 
 function:
-    TYPE VARIABLE_NAME FIRST_BRACKET_OPEN params FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN statement ret SECOND_BRACKET_CLOSE {
+    TYPE VARIABLE_NAME FIRST_BRACKET_OPEN params FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN statement block {
                                                                                                                             printf("User defined function.\n");
                                                                                                                         }
     ;
@@ -298,25 +299,25 @@ scan:
                                                                 }
 
 
-while: WHILE FIRST_BRACKET_OPEN assign_value  FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN statement SECOND_BRACKET_CLOSE    {
+while: WHILE FIRST_BRACKET_OPEN assign_value  FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN block    {
                                                                                                                             if($3.int_value)
                                                                                                                             {
                                                                                                                                 printf("while loop is running");
                                                                                                                             }
                                                                                                                         }
-for: FOR FIRST_BRACKET_OPEN expression SEMICOLON assign_value SEMICOLON expression FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN statement SECOND_BRACKET_CLOSE   {
+for: FOR FIRST_BRACKET_OPEN expression SEMICOLON assign_value SEMICOLON expression FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN block   {
                                                                                                                                                                 if($5.int_value)
                                                                                                                                                                 {
                                                                                                                                                                     printf("for loop running");
                                                                                                                                                                 }
                                                                                                                                                             }
-if: IF FIRST_BRACKET_OPEN assign_value FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN statement SECOND_BRACKET_CLOSE   {
+if: IF FIRST_BRACKET_OPEN assign_value FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN block   {
                                                                                                                     if($3.int_value)
                                                                                                                     {
                                                                                                                         printf("If statement will be executed.\n");
                                                                                                                     }
                                                                                                                 }
-    | IF FIRST_BRACKET_OPEN assign_value FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN statement SECOND_BRACKET_CLOSE ELSE SECOND_BRACKET_OPEN statement SECOND_BRACKET_CLOSE {
+    | IF FIRST_BRACKET_OPEN assign_value FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN block ELSE SECOND_BRACKET_OPEN block {
                                                                                                                                                                             if($3.int_value)
                                                                                                                                                                             {
                                                                                                                                                                                 printf("If statement will be executed.\n");
@@ -327,6 +328,10 @@ if: IF FIRST_BRACKET_OPEN assign_value FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN s
                                                                                                                                                                             }
                                                                                                                                                                         }
 
+block:
+    statement block
+    | statement SECOND_BRACKET_CLOSE {$$.int_value=$1.int_value;}
+    ;
 
 switch:
     SWITCH FIRST_BRACKET_OPEN assign_value FIRST_BRACKET_CLOSE {
@@ -363,7 +368,7 @@ cases:
                                                                                                         }
     ;
 default_function:
-    DEFAULT SECOND_BRACKET_OPEN statement SECOND_BRACKET_CLOSE {}
+    DEFAULT COLON SECOND_BRACKET_OPEN statement SECOND_BRACKET_CLOSE {}
     ;
 
 
