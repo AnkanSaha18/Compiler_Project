@@ -1,34 +1,65 @@
-<! 
-This is multiline comment
-!>
+#import input.h
+#import output.h
+#import myLibrary.h
 
-#import mylibrary.h
-<DoublE> d3:= 5.6
 
-<InT> int1 := 2
-<InT> int2 := 1
-<InT> int3 := 5 !!== 5
-<PrintF> ((int3))
-int1 := int1 +op+ int2
+
+<InT> userDefineFunctionName ((<InT> par1:=4 ,, <DoublE> par2:= 6))
+{{
+    <InT> abc := 4
+    <ReturN> abc
+}}
+
+<InT> int1 := 1 ,, int2 := 2 ,, int3 := 3
+<InT> int4 := 4
+<InT> int5 := 4 ,, int6 := 6
+
+<DoublE> double1 := 1 ,, double2 := 2 ,, double3 := 3
+
+<ChaR> char1 := 1 ,, char2 := 2 ,, char3 := 3 
+
+
+<PrintF>(($Result of different type of operations$))
+int1 := int2 +op+ int3
+<PrintF>((int1))
+
+int1 := int2 -op- int3
+<PrintF>((int1))
+
+int1 := int2 %op% int3
+<PrintF>((int1))
+
+int1 := int2 &op& int3 -op- int4
+<PrintF>((int1))
+
+int1 := int2 *op* int3 -op- int4
+<PrintF>((int1))
+
+int1 := int2 &op& (( int3 -op- int4 ))
+<PrintF>((int1))
+
+
+int1:= 100
+IncOnE((int1))
+<PrintF>((int1))
+IncOnE((int1))
+<PrintF>((int1))
+DecOnE((int1))
+<PrintF>((int1))
+
+GCD (( 42 ,, 35 ))
+LCM (( int1 ,, 7 ))
+MIN (( int1 ,, int3 ))
+MAX (( int1 ,, int3 ))
+
 
 <WhilE> ((int1 << 4))
 {{
     <ChaR> char1 := $A$
 }}
 
+
 <InT> i := 3
-
-<PrintF>(($This is checking$))
-IncOnE((i))
-<PrintF>((i))
-IncOnE((i))
-<PrintF>((i))
-DecOnE((i))
-<PrintF>((i))
-
-
-
-
 <FoR> (( i:=6 ;; i << 4 ;; IncOnE((i)) ))
 {{ 
     i := i +op+ 4 
@@ -43,14 +74,10 @@ DecOnE((i))
     int3 := 4 -op- 5
 }}
 
-<InT> kdjf ((<InT> par1:=4 ,, <DoublE> par2:= 6)){{
-    <InT> abc := 4
-    <ReturN> abc
+i := 1
+<IF> ((i <<== 1))
+{{
+    int1 := 8 +op+ 5
 }}
-int3 := 5
-<PrintF> ((int1))
-<PrintF> ((int3))
-GCD (( int1 ,, int3 ))
-LCM (( int1 ,, int3 ))
-<PrintF> ((int1))
-<PrintF> ((int3))
+
+

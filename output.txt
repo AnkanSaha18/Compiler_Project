@@ -1,68 +1,104 @@
+#import input.h is included.
 
+#import output.h is included.
 
-#import mylibrary.h is included.
-
-
-
-double 0 value is: 0	
-int 1 value is: 2	
-int 2 value is: 1	
-int 3 value is: 0	0
-
-
-
-int 1 value is: 3	
-
-
-char 4 value is: 4	while loop is running
-
-
-
-int 5 value is: 3	This is checking
-
-
-4
-
-
-5
-
-
-4
+#import myLibrary.h is included.
 
 
 
 
-
-int 5 value is: 6	
-
-
-int 5 value is: 11	
+Function declared
 
 
 
 
-int 1 value is: 13	
-
-
-
-int 3 value is: -1	Else statement will be executed.
-
-
-int 6 value is: 4	Function declared
-int 7 value is: 6	
-
-int 8 value is: 4	
 User defined function.
 
 
-int 3 value is: 5	13
+
+
+
+
+
+
+
+
+
+Result of different type of operations
+
 
 5
 
-13 5 GCD is 1
 
-13 5 LCM is 65
 
-13
+-1
 
-5
+
+
+2
+
+
+
+-2
+
+
+
+2
+
+
+
+2
+
+
+
+
+
+101
+
+
+102
+
+
+101
+
+
+42 35 GCD is 7
+
+101 7 LCM is 707
+
+101 3 Min is 3
+
+101 3 Max is 101
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Else statement will be executed.
+
+
+
+
+
+
+
+
+
+If statement will be executed.

@@ -91,6 +91,8 @@ LOGICAL_OPERATOR "&&"|("||")|"!"
 
 ";;"										{return SEMICOLON ;}
 
+"::"										{return COLON ;}
+
 ",,"										{return COMMA ;}
 
 "<ReturN>"									{return RETURN ;}
@@ -117,9 +119,16 @@ LOGICAL_OPERATOR "&&"|("||")|"!"
 
 "LCM"										{return LCM ;}
 
+"MIN"										{return MIN ;}
+
+"MAX"										{return MAX ;}
+
 "<SwitcH>"									{return SWITCH ;}
 
 "<CasE>"									{return CASE ;}
+
+"<DefaulT>"									{return DEFAULT ;}
+
 
 {REAL_NUMBER}								{
 												yylval.union_variable.double_value = atof(yytext);

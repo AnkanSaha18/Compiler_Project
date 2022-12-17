@@ -39,19 +39,27 @@
         {
             symbol_table_index++;
         }
-        printf("%s %d value is: %d\t",type, i, symbol_table[i].int_value);
+        // printf("%s %d value is: %d\t",type, i, symbol_table[i].int_value);
     }
 
     int gcd(int x, int y)
     {
-        if (y == 0)   //recursion termination condition
+        if (y == 0)
         {
             return x;
         }
         else 
         {
-            return gcd(y, x % y);   //calls itself
+            return gcd(y, x % y);
         }
+    }
+    int min(int a, int b)
+    {
+        return (a>b)?b:a;
+    }
+    int max(int a, int b)
+    {
+        return (a>b)?a:b;
     }
 
 %}
@@ -74,16 +82,19 @@
 %token INT CHAR VOID DOUBLE
 %token DOUBLE_VALUE INTEGER_VALUE CHAR_VALUE VARIABLE_NAME
 %token ASSIGN 
-%token PLUS MINUS MULTIPLE DIVISION MOD BINARY_OR BINARY_AND POW
+%left PLUS MINUS BINARY_OR BINARY_AND
+%left MULTIPLE DIVISION MOD 
+%left POW
 %token EQUAL NOT_EQUAL GREATER_THAN LESS_THAN GREATER_THAN_AND_EQUAL LESS_THAN_AND_EQUAL 
 %token AND OR
 %token INC_ONE DEC_ONE
 %token TRUE FALSE
-%token FIRST_BRACKET_OPEN FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN SECOND_BRACKET_CLOSE THIRD_BRACKET_OPEN THIRD_BRACKET_CLOSE SEMICOLON COMMA
-%token IF ELSE_IF ELSE SWITCH CASE FOR WHILE CONTINUE BREAK 
+%nonassoc FIRST_BRACKET_OPEN FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN SECOND_BRACKET_CLOSE THIRD_BRACKET_OPEN THIRD_BRACKET_CLOSE SEMICOLON COLON COMMA
+%token IF ELSE_IF ELSE SWITCH CASE DEFAULT FOR WHILE CONTINUE BREAK 
 %token PRINTF SCANF SIZE_OF RETURN 
 %token OUTPUTTEXT LIBRARY
 %nonassoc GCD LCM
+%nonassoc MIN MAX
 %start program
 
 %type<union_variable> VARIABLE_NAME INTEGER_VALUE DOUBLE_VALUE CHAR_VALUE assign_value OUTPUTTEXT LIBRARY
@@ -108,6 +119,8 @@ statement:
         | case
         | gcd
         | lcm
+        | min
+        | max
         ;
 
 library: LIBRARY                            { printf("%s is included.\n", $1.name);}
@@ -317,16 +330,16 @@ if: IF FIRST_BRACKET_OPEN assign_value FIRST_BRACKET_CLOSE SECOND_BRACKET_OPEN s
 
 switch:
     SWITCH FIRST_BRACKET_OPEN assign_value FIRST_BRACKET_CLOSE {
-        switch_value = $3.ival;
+        switch_value = $3.int_value;
         switch_check = 0;
-        printf("switch statement.\n");
+        printf("Switch statement check\n");
     }
     ;
 
 case:
     cases
     {
-        if(check == 0)
+        if(switch_check == 0)
         {
             printf("default\n");
         }
@@ -334,31 +347,40 @@ case:
     ;
 
 cases: 
-    CASE assignval COLON LBRA statement RBRA cases{
-        if(sw==$2.ival)
-        {
-            printf("%d\n",$2.ival);
-            check = 1;
-        }
-
-    }
-    |CASE assignval COLON LBRA statement RBRA default_function {
-        
-        if(sw==$2.ival)
-        {
-            printf("%d\n",$2.ival);
-            check = 1;
-        }
-    }
+    CASE assign_value COLON SECOND_BRACKET_OPEN statement SECOND_BRACKET_CLOSE cases      {
+                                                                                            if(switch_value==$2.int_value)
+                                                                                            {
+                                                                                                printf("%d\n",$2.int_value);
+                                                                                                switch_check = 1;
+                                                                                            }
+                                                                                        }
+    | CASE assign_value COLON SECOND_BRACKET_OPEN statement SECOND_BRACKET_CLOSE default_function       {
+                                                                                                            if(switch_value==$2.int_value)
+                                                                                                            {
+                                                                                                                printf("%d\n",$2.int_value);
+                                                                                                                switch_check = 1;
+                                                                                                            }
+                                                                                                        }
+    ;
+default_function:
+    DEFAULT SECOND_BRACKET_OPEN statement SECOND_BRACKET_CLOSE {}
     ;
 
 
-gcd: GCD FIRST_BRACKET_OPEN assign_value COMMA assign_value FIRST_BRACKET_CLOSE       {
-                                                                                            printf("%d %d GCD is %d\n",$3.int_value, $5.int_value, gcd($3.int_value, $5.int_value));
-                                                                                        }
-lcm: LCM FIRST_BRACKET_OPEN assign_value COMMA assign_value FIRST_BRACKET_CLOSE       {
-                                                                                            printf("%d %d LCM is %d\n",$3.int_value, $5.int_value, $3.int_value * $5.int_value / gcd($3.int_value, $5.int_value));
-                                                                                        }       
+gcd: GCD FIRST_BRACKET_OPEN assign_value COMMA assign_value FIRST_BRACKET_CLOSE     {
+                                                                                        printf("%d %d GCD is %d\n",$3.int_value, $5.int_value, gcd($3.int_value, $5.int_value));
+                                                                                    }
+lcm: LCM FIRST_BRACKET_OPEN assign_value COMMA assign_value FIRST_BRACKET_CLOSE     {
+                                                                                        printf("%d %d LCM is %d\n",$3.int_value, $5.int_value, $3.int_value * $5.int_value / gcd($3.int_value, $5.int_value));
+                                                                                    }
+min: MIN FIRST_BRACKET_OPEN assign_value COMMA assign_value FIRST_BRACKET_CLOSE     {
+                                                                                        printf("%d %d Min is %d\n",$3.int_value, $5.int_value, min($3.int_value, $5.int_value));
+                                                                                    }       
+max: MAX FIRST_BRACKET_OPEN assign_value COMMA assign_value FIRST_BRACKET_CLOSE     {
+                                                                                        printf("%d %d Max is %d\n",$3.int_value, $5.int_value, max($3.int_value, $5.int_value));
+                                                                                    } 
+
+
 %%
 
 
