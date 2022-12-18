@@ -6,6 +6,8 @@
 
 
 
+The comment begins
+The comment ends
 
 Function declared
 
@@ -26,6 +28,11 @@ Function declared
 
 
 
+
+
+Double checking
+
+3.800000
 
 
 
@@ -132,3 +139,6 @@ User defined function.
 
 
 
+
+The comment begins
+The comment ends

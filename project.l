@@ -25,7 +25,14 @@ LOGICAL_OPERATOR "&&"|("||")|"!"
 												return LIBRARY;
 											}
 
-"<!"({WHITE_SPACE}|{NEWLINE}|.)*"!>"									{}
+"<!"										{
+												printf("\nThe comment begins");
+												char c;
+												while(c=input()!='!');
+												
+												if(c=input()=='>')
+													printf("\nThe comment ends");		
+											}
 
 "<InT>"										{return INT ;}
 
