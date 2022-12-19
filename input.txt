@@ -90,14 +90,18 @@ This is multiline comment
     <IF> ((i <<== 1))
     {{
         int1 := 8 +op+ 5
+        <IF> ((i <<== 1))
+        {{
+            <PrintF>(($Nested IF$))
+        }}
     }}
 
     <SwitcH> (( 3 ))
-    <CasE> 1 :: {{ <PrintF>(($1$)) }}
-    <CasE> 2 :: {{ <PrintF>(($2$)) }}
-    <CasE> 3 :: {{ <PrintF>(($3$)) }}
-    <CasE> 4 :: {{ <PrintF>(($4$)) }}
-    <DefaulT> :: {{ <PrintF>(($default$))}}
+    <CasE> 1 :: {{ <PrintF>(($case 1$)) }}
+    <CasE> 2 :: {{ <PrintF>(($case 2$)) }}
+    <CasE> 3 :: {{ <PrintF>(($case 3$)) }}
+    <CasE> 4 :: {{ <PrintF>(($case 4$)) }}
+    <DefaulT> :: {{ <PrintF>(($default case$))}}
 }}
 
 

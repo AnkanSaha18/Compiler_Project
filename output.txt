@@ -120,18 +120,24 @@ Else statement will be executed.
 
 
 
+Nested IF
+
+
+If statement will be executed.
+
+
 If statement will be executed.
 Switch statement check
 
-1
+case 1
 
-2
+case 2
 
-3
+case 3
 
-4
+case 4
 
-default
+default case
 3
 
 User defined function.
